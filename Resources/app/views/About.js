@@ -1,15 +1,10 @@
 module.exports = function (Como) {
     var _ = require('/lib/Underscore/underscore.min'),
-        $ = require('/lib/Como/Utils'),
         UI = Como.loadUI(),
         create;
         
     create = function() {
-        var win = new UI.win({
-            backgroundImage: '/images/mainBg.png',
-            exitOnClose: true,
-            navBarHidden: true
-        });
+        var self = new UI.view();
         
         var content = new UI.view({
             height: Ti.UI.SIZE,
@@ -27,7 +22,7 @@ module.exports = function (Como) {
         });
         
         var subtitle = new UI.label({
-            color: '#FFF',
+            color: '#000',
             font: {
                 fontSize: '18dp',
                 fontWeight: 'bold'
@@ -38,64 +33,69 @@ module.exports = function (Como) {
         });
         
         var mainTitle = new UI.label({
-            color: '#FFF',
+            color: '#000',
             font: {
                 fontSize: '48dp',
                 fontWeight: 'bold'
             },
             left: 0,
             text: 'toysoldier',
-            top: '1%'
+            top: 0
         });
         
         var desc = new UI.label({
+            color: '#333',
             font: {
                 fontSize: '11dp'
             },
             left: 0,
-            text: 'I wanna explore the world of design.\nThere, I give hope, joy and passion through my artwork.\nThere is why I live & why I design.',
+            text: 'I wanna explore the world of design.\nThere, I give hope, joy and passion through my artwork.',
+            top: 0
+        });
+        
+        var logo = Ti.UI.createImageView({
+            image: '/images/pg1_logo.png',
+            height: '94dp',
+            left: '2%',
+            top: '3%',
+            width: '134dp'
+        });
+        
+        var author = new UI.label({
+            color: '#333',
+            font: {
+                fontSize: '16dp',
+                fontWeight: 'bold'
+            },
+            left: '4%',
+            text: 'Daum',
             top: '2%'
         });
         
-        var btnGo = new UI.button({
-            backgroundImage: '/images/buttonGo.png',
-            height: '36dp',
+        var authorDesc = new UI.label({
+            color: '#333',
+            font: {
+                fontSize: '14dp',
+            },
             left: '4%',
-            top: '10%',
-            width: '169dp'
+            text: 'marketing design team',
+            top: 0
         });
-        btnGo.on('click', 'Toysoldier/dashboard');
         
         var toy = Ti.UI.createImageView({
             bottom: '5%',
-            image: '/images/soldierHome.png',
-            height: '209dp',
+            image: '/images/pg1_toy.png',
+            height: '250dp',
             right: '7%',
-            width: '80dp'
-        });
-        
-        var badge = Ti.UI.createImageView({
-            image: '/images/mainLol.png',
-            height: '55dp',
-            right: 0,
-            top: 0,
-            width: '55dp'
+            width: '134dp'
         });
         
         infoWrapper.addAll([subtitle, mainTitle, desc]);
-        content.add(infoWrapper);
-        content.add(btnGo);
-        win.add(badge);
-        win.add(content);
-        win.add(toy);
-         
-        var ob1 = {a: {x:1}}, ob2 = {a: {y:2, z:3}}, ob3 = $.extend(ob1, ob2, true);
+        content.addAll([infoWrapper, logo, author, authorDesc]);
+        self.add(content);
+        self.add(toy);
         
-        Ti.API.info(JSON.stringify(ob1));
-        Ti.API.info(JSON.stringify(ob2));
-        Ti.API.info(JSON.stringify(ob3));
-            
-        return win;
+        return self;
     };
         
     return {
